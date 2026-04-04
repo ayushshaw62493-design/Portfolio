@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
 
@@ -10,19 +9,6 @@ const formVariants = {
 };
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
   return (
     <section
       id="contact"
@@ -49,13 +35,13 @@ export function ContactSection() {
           name="contact"
           method="POST"
           data-netlify="true"
+          action="/thank-you" // optional, submit ke baad thank-you page dikhana hai
           variants={formVariants}
           initial="hidden"
           animate="visible"
           style={{ transformStyle: "preserve-3d" }}
           className="glass-card p-8 md:p-12 space-y-6 transition-all duration-500 hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(0,255,255,0.5)] hover:scale-[1.01]"
         >
-
           {/* Netlify Hidden Input */}
           <input type="hidden" name="form-name" value="contact" />
 
@@ -67,8 +53,6 @@ export function ContactSection() {
             <input
               type="text"
               name="name"
-              value={formData.name}
-              onChange={handleChange}
               required
               placeholder="Your name"
               className="w-full px-4 py-3 bg-background border border-cyan-400/20 rounded-lg text-white placeholder-gray-500 focus:border-cyan-400 focus:outline-none transition-all"
@@ -83,8 +67,6 @@ export function ContactSection() {
             <input
               type="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
               required
               placeholder="your@email.com"
               className="w-full px-4 py-3 bg-background border border-cyan-400/20 rounded-lg text-white placeholder-gray-500 focus:border-cyan-400 focus:outline-none transition-all"
@@ -98,8 +80,6 @@ export function ContactSection() {
 
             <textarea
               name="message"
-              value={formData.message}
-              onChange={handleChange}
               required
               rows={5}
               placeholder="Your message here..."
