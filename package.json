@@ -2,9 +2,9 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
- "scripts": {
+"scripts": {
   "dev": "next dev",
-  "build": "next build && next export -o out",
+  "build": "next build && next export",
   "start": "next start",
   "lint": "eslint ."
 },
