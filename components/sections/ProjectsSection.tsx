@@ -42,7 +42,7 @@ const projects = [
       'Online cake ordering platform where users can browse cakes, customize designs, and place orders.',
     tags: ['Next.js', 'React', 'Tailwind CSS'],
     live: 'https://bakemeacake.netlify.app',
-    github: '#'
+    github: 'https://github.com/ayushshaw62493-design/codesoft'
   },
   {
     title: 'Portfolio UI Design',

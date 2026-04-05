@@ -40,40 +40,42 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, [currentLine, mounted]);
 
-  // ⭐ Smooth scroll function
+  const sections = [
+    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skill' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Contact', href: '#contact' },
+  ];
+
   const scrollToSection = (href: string, name: string) => {
     setActiveSection(name);
     const section = document.querySelector(href);
     section?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const sections = [
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skill' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
   if (!mounted) return null;
 
   return (
     <section id="about" className="scroll-section flex flex-col items-center relative px-6 pt-28 pb-12 overflow-hidden min-h-screen">
+
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/5 border-b border-white/10 flex justify-center py-4 glass-card">
-        <ul className="flex gap-8">
-          {sections.map((sec) => (
-            <li key={sec.name}>
-              <button
-                onClick={() => scrollToSection(sec.href, sec.name)}
-                className={`nav-link font-semibold text-lg transition-all ${
-                  activeSection === sec.name ? 'gradient-text' : 'text-gray-300'
-                }`}
-              >
-                {sec.name}
-              </button>
-            </li>
-          ))}
-        </ul>
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex gap-4 backdrop-blur-md p-2 rounded-full glass-card border border-white/10">
+        {sections.map((sec) => (
+          <motion.button
+            key={sec.name}
+            onClick={() => scrollToSection(sec.href, sec.name)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`px-4 py-2 rounded-xl font-semibold text-sm transition-all border ${
+              activeSection === sec.name
+                ? 'bg-cyan-400/20 border-cyan-400 text-white'
+                : 'bg-white/5 border-white/20 text-gray-300'
+            }`}
+          >
+            {sec.name}
+          </motion.button>
+        ))}
       </nav>
 
       {/* Floating tech icons */}
@@ -94,6 +96,7 @@ export function HeroSection() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-center">
+
           {/* Sphere */}
           <motion.div className="anim-3d delay-1 flex justify-center relative h-80" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
             <div className="neon-sphere-container relative" style={{ width: '280px', height: '280px' }}>
@@ -126,6 +129,7 @@ export function HeroSection() {
               <motion.a href="#projects" className="px-8 py-3 rounded-lg font-semibold border transition-all text-sm inline-block" style={{ borderColor: 'rgba(179,102,255,0.5)', color: 'var(--secondary)' }} whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(179,102,255,0.3)' }}>View Work</motion.a>
             </div>
           </motion.div>
+
         </div>
       </div>
 
