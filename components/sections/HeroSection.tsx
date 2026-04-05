@@ -51,7 +51,11 @@ export function HeroSection() {
   const scrollToSection = (href: string, name: string) => {
     setActiveSection(name);
     const section = document.querySelector(href);
-    section?.scrollIntoView({ behavior: 'smooth' });
+    if (section) {
+      const yOffset = -80; // offset for fixed navbar
+      const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   if (!mounted) return null;
@@ -60,22 +64,24 @@ export function HeroSection() {
     <section id="about" className="scroll-section flex flex-col items-center relative px-6 pt-28 pb-12 overflow-hidden min-h-screen">
 
       {/* Navbar */}
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex gap-4 backdrop-blur-md p-2 rounded-full glass-card border border-white/10">
-        {sections.map((sec) => (
-          <motion.button
-            key={sec.name}
-            onClick={() => scrollToSection(sec.href, sec.name)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`px-4 py-2 rounded-xl font-semibold text-sm transition-all border ${
-              activeSection === sec.name
-                ? 'bg-cyan-400/20 border-cyan-400 text-white'
-                : 'bg-white/5 border-white/20 text-gray-300'
-            }`}
-          >
-            {sec.name}
-          </motion.button>
-        ))}
+      <nav className="fixed top-0 left-0 w-full z-50 flex justify-center py-3 px-2 sm:px-4 backdrop-blur-md glass-card border-b border-white/10">
+        <div className="flex gap-2 sm:gap-4 overflow-x-auto px-2 sm:px-4">
+          {sections.map((sec) => (
+            <motion.button
+              key={sec.name}
+              onClick={() => scrollToSection(sec.href, sec.name)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`flex-shrink-0 px-4 py-2 rounded-xl font-semibold text-sm transition-all border whitespace-nowrap ${
+                activeSection === sec.name
+                  ? 'bg-cyan-400/20 border-cyan-400 text-white'
+                  : 'bg-white/5 border-white/20 text-gray-300'
+              }`}
+            >
+              {sec.name}
+            </motion.button>
+          ))}
+        </div>
       </nav>
 
       {/* Floating tech icons */}
@@ -87,7 +93,7 @@ export function HeroSection() {
         <div className="tech-icon" style={{ bottom: '20%', right: '5%' }} title="Web Dev"><Globe size={32} /></div>
       </div>
 
-      {/* Main Hero */}
+      {/* Hero Content */}
       <div className="max-w-5xl w-full relative z-10">
         <motion.div className="anim-up delay-1 text-center mb-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider backdrop-blur-sm border" style={{ background: 'rgba(0,217,255,0.15)', color: 'var(--primary)', borderColor: 'rgba(0,217,255,0.3)', boxShadow: '0 0 20px rgba(0,217,255,0.1)' }}>
@@ -110,7 +116,7 @@ export function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Hero content */}
+          {/* Hero text */}
           <motion.div className="space-y-6 text-center lg:text-left" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
             <h1 className="text-5xl lg:text-6xl font-bold gradient-text">
               {displayedLines[0] || currentText}
@@ -133,7 +139,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll */}
+      {/* Scroll hint */}
       <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20" animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity }}>
         <p className="text-sm text-gray-400 mb-2">Scroll to explore</p>
         <ChevronDown size={24} className="text-cyan-400" />
