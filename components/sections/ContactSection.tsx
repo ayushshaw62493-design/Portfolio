@@ -31,25 +31,26 @@ export function ContactSection() {
           </p>
         </motion.div>
 
+        {/* --- Netlify Compatible Form --- */}
         <motion.form
           name="contact"
           method="POST"
           data-netlify="true"
-          action="/thank-you" // optional, submit ke baad thank-you page dikhana hai
+          netlify
+          action="/thank-you"
           variants={formVariants}
           initial="hidden"
           animate="visible"
           style={{ transformStyle: "preserve-3d" }}
           className="glass-card p-8 md:p-12 space-y-6 transition-all duration-500 hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(0,255,255,0.5)] hover:scale-[1.01]"
         >
-          {/* Netlify Hidden Input */}
+          {/* Hidden Input for Netlify */}
           <input type="hidden" name="form-name" value="contact" />
 
           <div>
             <label className="block text-sm font-semibold text-cyan-400 mb-2">
               Name
             </label>
-
             <input
               type="text"
               name="name"
@@ -63,7 +64,6 @@ export function ContactSection() {
             <label className="block text-sm font-semibold text-cyan-400 mb-2">
               Email
             </label>
-
             <input
               type="email"
               name="email"
@@ -77,7 +77,6 @@ export function ContactSection() {
             <label className="block text-sm font-semibold text-cyan-400 mb-2">
               Message
             </label>
-
             <textarea
               name="message"
               required
@@ -94,7 +93,6 @@ export function ContactSection() {
             Send Message
             <Send className="w-4 h-4" />
           </button>
-
         </motion.form>
 
       </div>
